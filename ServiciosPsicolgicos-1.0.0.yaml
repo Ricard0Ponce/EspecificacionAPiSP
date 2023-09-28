@@ -1,0 +1,628 @@
+---
+openapi: 3.0.0
+info:
+  title: Servicios Psicologicos
+  description: API utilizada para los servicios Psicologicos de una unidad academica
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/Ricard0Ponce/ServiciosPsicolgicos/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /api/alumnos:
+    get:
+      tags:
+      - Alumnos
+      summary: Regresa la lista de alumnos
+      description: Regresa todos los Alumnos
+      operationId: getAllAlumnos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alumnos'
+        "204":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error204Alumno'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Alumno'
+  /api/alumnos/{id}:
+    get:
+      tags:
+      - Alumnos
+      summary: Regresa un Alumno por id
+      description: Regresa al alumno con el id especificado.
+      operationId: getAlumnoById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          maxLength: 10
+          minLength: 10
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alumno'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404AlumnoID'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Alumno'
+  /api/citas:
+    get:
+      tags:
+      - Citas
+      summary: Regresa todas las citas
+      operationId: getAllCita
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Citas'
+        "204":
+          description: No se encontraron citas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error204Cita'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Cita'
+    post:
+      tags:
+      - Citas
+      summary: Crear una nueva cita
+      operationId: createCita
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cita'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cita'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Cita'
+  /api/citas/{id}:
+    get:
+      tags:
+      - Citas
+      summary: Regresa cita por id
+      operationId: getCitaById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cita'
+        "404":
+          description: No se encontro la cita
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404CitaID'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Cita'
+    put:
+      tags:
+      - Citas
+      summary: Actualiza una cita por id
+      operationId: updateCitaById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cita'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cita'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404CitaID'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Cita'
+    delete:
+      tags:
+      - Citas
+      summary: Eliminar cita por id
+      operationId: deleteCitaById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: No Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404CitaID'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Cita'
+  /api/tamizajes:
+    get:
+      tags:
+      - Tamizajes
+      summary: Regresa todos los tamizajes
+      operationId: getAllTamizajes
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tamizajes'
+        "204":
+          description: No se encontraron citas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error204Tamizaje'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Tamizaje'
+    post:
+      tags:
+      - Tamizajes
+      summary: Crear un nuevo tamizaje
+      operationId: createTamizaje
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tamizaje'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tamizaje'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Tamizaje'
+  /api/tamizaje/{id}:
+    get:
+      tags:
+      - Tamizajes
+      summary: Regresa un tamizaje por ID
+      operationId: getTamizajeById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tamizaje'
+        "404":
+          description: No se encontro la cita
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404Tamizaje'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Tamizaje'
+  /api/psiquiatra:
+    get:
+      tags:
+      - Psiquiatra
+      summary: Regresa todos los psiquiatras
+      operationId: getAllPsiquiatras
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Psiquiatras'
+        "204":
+          description: No se encontraron Psiquiatras
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error204Psiquiatra'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Psiquiatra'
+  /api/psiquiatra/{id}:
+    get:
+      tags:
+      - Psiquiatra
+      summary: Regresa un tamizaje por ID
+      operationId: getPsiquiatraById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Psiquiatra'
+        "404":
+          description: No se encontro la cita
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404Psiquiatra'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Psiquiatra'
+  /api/alumnos/login:
+    get:
+      tags:
+      - Alumnos
+      summary: Regresa un alumno registrado
+      description: Obtiene un objeto especificando matricula y password. La respuesta es un alumno con sus atributos
+      operationId: getLoginAlumno
+      parameters:
+      - name: matricula
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          maximum: 9999999999
+          type: integer
+      - name: password
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alumno'
+        "204":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404AlumnoID'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Alumno'
+  /api/psiquiatra/login:
+    get:
+      tags:
+      - Psiquiatra
+      summary: Regresa un psicologo registrado
+      description: Obtiene un objeto especificando matricula y password. La respuesta es un psicologo con sus atributos
+      operationId: getLoginPsicologo
+      parameters:
+      - name: id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          maximum: 9999999999
+          type: integer
+      - name: password
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Psiquiatra'
+        "204":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404Psiquiatra'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500Psiquiatra'
+components:
+  schemas:
+    Alumnos:
+      type: array
+      items:
+        $ref: '#/components/schemas/Alumno'
+    Alumno:
+      type: object
+      properties:
+        id:
+          maximum: 9999999999
+          type: integer
+          readOnly: true
+        password:
+          type: string
+        tamizajeId:
+          type: string
+        cita:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cita'
+        nombres:
+          type: string
+        apellidoPaterno:
+          type: string
+        apellidoMaterno:
+          type: string
+        email:
+          type: string
+        genero:
+          type: string
+        telefonoMovil:
+          type: string
+    Tamizajes:
+      type: array
+      items:
+        $ref: '#/components/schemas/Tamizaje'
+    Tamizaje:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        idAlumno:
+          maximum: 9999999999
+          type: integer
+        percentil:
+          type: number
+        respuestas:
+          type: array
+          items:
+            type: string
+    Citas:
+      type: array
+      items:
+        $ref: '#/components/schemas/Cita'
+    Cita:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        idAlumno:
+          maximum: 9999999999
+          type: integer
+        fecha:
+          type: string
+          format: date
+        hora:
+          type: string
+          format: time
+        idPsiquiatra:
+          type: integer
+          format: int64
+        motivoCita:
+          type: string
+        discapacidad:
+          type: boolean
+        comunidadIndigena:
+          type: boolean
+        migrante:
+          type: boolean
+    Psiquiatras:
+      type: array
+      items:
+        $ref: '#/components/schemas/Psiquiatra'
+    Psiquiatra:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        password:
+          type: string
+    Error204Alumno:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: Los alumnos no fueron encontrados
+    Error500Alumno:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: Error en el servidor
+    Error404AlumnoID:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: El alumno no fue encontrado
+    Error204Cita:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: Las citas no fueron encontradas
+    Error500Cita:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: Error en el servidor
+    Error404CitaID:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: Las cita no fue encontrada
+    Error204Tamizaje:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: Los tamizajes no fueron encontrados
+    Error404Tamizaje:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: El tamizaje no fue encontrado
+    Error500Tamizaje:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: Error en el servidor
+    Error204Psiquiatra:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: Los psiquiatras no fueron encontrados
+    Error404Psiquiatra:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: El psiquiatra no fue encontrado
+    Error500Psiquiatra:
+      type: object
+      properties:
+        description:
+          type: string
+          description: error message
+          example: Error en el servidor
